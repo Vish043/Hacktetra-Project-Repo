@@ -1,9 +1,22 @@
-
-import React from 'react';
-import { CheckCircle2, XCircle, Shield, RefreshCw, Download, Share2 } from 'lucide-react';
+import React from "react";
+import {
+  CheckCircle2,
+  XCircle,
+  Shield,
+  RefreshCw,
+  Download,
+  Share2,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 
 interface AnalysisResultProps {
   isReal: boolean;
@@ -13,16 +26,19 @@ interface AnalysisResultProps {
   isLoading?: boolean;
 }
 
-const AnalysisResult: React.FC<AnalysisResultProps> = ({ 
-  isReal, 
-  confidenceScore, 
+const AnalysisResult: React.FC<AnalysisResultProps> = ({
+  isReal,
+  confidenceScore,
   audioName = "Analyzed audio",
   onAnalyzeAnother,
-  isLoading = false
+  isLoading = false,
 }) => {
   return (
-    <Card className="w-full max-w-2xl mx-auto shadow-lg border-t-8 transition-all duration-300"
-      style={{ borderTopColor: isLoading ? '#9ca3af' : isReal ? '#10b981' : '#ef4444' }}
+    <Card
+      className="w-full max-w-2xl mx-auto shadow-lg border-t-8 transition-all duration-300"
+      style={{
+        borderTopColor: isLoading ? "#9ca3af" : isReal ? "#10b981" : "#ef4444",
+      }}
     >
       <CardHeader className="text-center pb-2">
         <CardTitle className="text-2xl sm:text-3xl font-bold">
@@ -38,19 +54,19 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({
               ) : (
                 <XCircle className="mr-3 h-8 w-8 text-destructive" />
               )}
-              <span>
-                {isReal ? "Authentic Voice" : "AI-Generated Voice"}
-              </span>
+              <span>{isReal ? "Authentic Voice" : "AI-Generated Voice"}</span>
             </div>
           )}
         </CardTitle>
         <CardDescription className="text-base mt-1">
-          {isLoading ? "Please wait while we analyze your audio" : (
+          {isLoading ? (
+            "Please wait while we analyze your audio"
+          ) : (
             <>"{audioName}"</>
           )}
         </CardDescription>
       </CardHeader>
-      
+
       <CardContent className="pt-4 pb-6">
         {isLoading ? (
           <div className="space-y-4">
@@ -66,38 +82,41 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({
               <span className="text-sm font-bold">{confidenceScore}%</span>
             </div>
             <div className="h-3 w-full bg-gray-100 rounded-full overflow-hidden">
-              <div 
-                className={`h-full ${isReal ? 'bg-success-500' : 'bg-destructive'} transition-all duration-500`}
+              <div
+                className={`h-full ${
+                  isReal ? "bg-success-500" : "bg-destructive"
+                } transition-all duration-500`}
                 style={{ width: `${confidenceScore}%` }}
               ></div>
             </div>
-            
+
             <div className="mt-6 bg-slate-50 p-4 rounded-lg">
               <h4 className="font-medium flex items-center mb-2">
                 <Shield className="mr-2 h-4 w-4 text-sentinel-500" />
                 Analysis Summary
               </h4>
               <p className="text-sm text-gray-600">
-                {isReal 
+                {isReal
                   ? "Our system has detected natural voice patterns, breath variations, and phonetic markers consistent with human speech."
-                  : "Our system has detected unnatural intonation, uniform patterns, and audio artifacts typically found in AI-generated voice content."
-                }
+                  : "Our system has detected unnatural intonation, uniform patterns, and audio artifacts typically found in AI-generated voice content."}
               </p>
             </div>
-            
+
             <div className="mt-6">
               <h4 className="font-medium mb-2">Audio Waveform</h4>
               <div className="bg-gray-100 h-24 rounded-lg overflow-hidden p-2 flex items-center justify-center">
                 <div className="flex h-full items-end justify-around w-full px-2">
                   {Array.from({ length: 30 }).map((_, i) => {
-                    const height = isReal 
-                      ? Math.floor(Math.random() * 100) 
-                      : 40 + Math.sin(i/2) * 30;
+                    const height = isReal
+                      ? Math.floor(Math.random() * 100)
+                      : 40 + Math.sin(i / 2) * 30;
                     return (
-                      <div 
-                        key={i} 
-                        style={{ height: `${height}%` }} 
-                        className={`w-1 rounded-t-sm ${isReal ? 'bg-success-400' : 'bg-destructive/70'}`}
+                      <div
+                        key={i}
+                        style={{ height: `${height}%` }}
+                        className={`w-1 rounded-t-sm ${
+                          isReal ? "bg-success-400" : "bg-destructive/70"
+                        }`}
                       ></div>
                     );
                   })}
@@ -107,28 +126,12 @@ const AnalysisResult: React.FC<AnalysisResultProps> = ({
           </>
         )}
       </CardContent>
-      
+
       <CardFooter className="flex flex-wrap justify-center gap-3 pt-2">
         {!isLoading && (
           <>
             <Button variant="outline" size="sm" onClick={onAnalyzeAnother}>
               Analyze Another
-            </Button>
-            <Button 
-              variant="secondary" 
-              size="sm"
-              className="bg-sentinel-100 text-sentinel-700 hover:bg-sentinel-200 hover:text-sentinel-800"
-            >
-              <Download className="mr-1 h-4 w-4" />
-              Save Report
-            </Button>
-            <Button 
-              variant="secondary" 
-              size="sm"
-              className="bg-sentinel-600 text-white hover:bg-sentinel-700"
-            >
-              <Share2 className="mr-1 h-4 w-4" />
-              Share Result
             </Button>
           </>
         )}

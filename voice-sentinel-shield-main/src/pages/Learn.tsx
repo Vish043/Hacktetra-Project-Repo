@@ -229,7 +229,7 @@ const Learn = () => {
             </div>
             
             <div className="text-sm text-gray-500">
-              &copy; 2025 Voice Sentinel Shield. All rights reserved.
+              2025 Voice Sentinel Shield.
             </div>
           </div>
         </div>
